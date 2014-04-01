@@ -82,6 +82,11 @@ suite 'each' ->
     f {a: 1, b: 2, c: 3}
     eq 10 count
 
+  test 'with key' ->
+    cat = ''
+    each ((v, k) -> cat += k + v), {a: 1, b: 2, c: 3}
+    eq 'a1b2c3', cat
+
 suite 'map' ->
   test 'empty object as input' ->
     deep-eq {}, map id, {}
@@ -92,6 +97,9 @@ suite 'map' ->
   test 'curried' ->
     f = map (* 2)
     deep-eq {a:2, b:4}, f {a:1, b:2}
+
+  test 'with key' ->
+    deep-eq {a:'1a', b:'2b'}, map ((v, k) -> v + k), {a:1, b:2}
 
 suite 'compact' ->
   test 'empty object as input' ->
@@ -111,6 +119,9 @@ suite 'filter' ->
     f = filter (== 2)
     deep-eq {b: 2}, f {a:1, b:2}
 
+  test 'with key' ->
+    deep-eq {b: 2}, filter ((v, k) -> k == 'b'), {a:1, b:2}
+
 suite 'reject' ->
   test 'empty object as input' ->
     deep-eq {}, reject id, {}
@@ -122,6 +133,9 @@ suite 'reject' ->
     f = reject (== 2)
     deep-eq {a: 1}, f {a:1, b:2}
 
+  test 'with key' ->
+    deep-eq {b: 2}, reject ((v, k) -> k == 'a'), {a:1, b:2}
+
 suite 'partition' ->
   test 'empty object as input' ->
     deep-eq [{}, {}], partition id, {}
@@ -132,6 +146,9 @@ suite 'partition' ->
   test 'curried' ->
     f = partition (== 2)
     deep-eq [{b: 2}, {a: 1, c: 3}], f {a:1, b:2, c:3}
+
+  test 'with key' ->
+    deep-eq [{b: 2}, {a: 1, c: 3}], partition ((v, k) -> k == 'b'), {a:1, b:2, c:3}
 
 suite 'find' ->
   test 'empty object as input' ->
