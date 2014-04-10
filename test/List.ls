@@ -193,6 +193,9 @@ suite 'unique-by' ->
   test 'accessor' ->
     deep-eq [[] [1 2 3] [4] [5 6]], unique-by (.length), [[], [1 2 3], [4], [5 6], [7], [8 9 10]]
 
+  test 'curried' ->
+    deep-eq [1,2,3,4,5,6], (unique-by id) [1 1 2 3 3 4 5 5 5 5 5 6 6 6 6]
+
 suite 'fold' ->
   test 'empty list as input' ->
     eq 0, fold (+), 0, []
@@ -516,6 +519,9 @@ suite 'maximum-by' ->
   test 'multi element list' ->
     eq 'long-string', maximum-by (.length), <[ hi there I am a really long-string ]>
 
+  test 'curried' ->
+    eq 2, (maximum-by id) [1 2 0]
+
 suite 'minimum-by' ->
   test 'empty list as input' ->
     eq void, minimum-by id, []
@@ -525,6 +531,9 @@ suite 'minimum-by' ->
 
   test 'multi element list' ->
     eq 'I', minimum-by (.length), <[ hi there I am a really long-string ]>
+
+  test 'curried' ->
+    eq 0, (minimum-by id) [1 2 0]
 
 suite 'scan' ->
   test 'empty list as input' ->

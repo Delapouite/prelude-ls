@@ -53,7 +53,7 @@ unique = (xs) ->
     result.push x
   result
 
-unique-by = (f, xs) ->
+unique-by = (f, xs) -->
   seen = []
   for x in xs
     val = f x
@@ -214,7 +214,7 @@ maximum-by = (f, xs) -->
     max = x
   max
 
-minimum-by = (f, xs) ->
+minimum-by = (f, xs) -->
   min = xs.0
   for x in xs.slice 1 when (f x) < (f min)
     min = x
